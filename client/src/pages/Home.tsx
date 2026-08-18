@@ -22,6 +22,7 @@ const teams: Team[] = [
 ];
 
 const STORAGE_KEY = "bboz-crying-counter-v1";
+const REMOTE_SCORES_URL = "https://raw.githubusercontent.com/ianseberg/contatore-pianti-bboz/main/scores.json";
 
 function readScores(): Scores {
   try {
@@ -42,6 +43,20 @@ export default function Home() {
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(scores));
   }, [scores]);
+
+  useEffect(() => {
+    let active = true;
+    fetch(`${REMOTE_SCORES_URL}?v=${Date.now()}`, { cache: "no-store" })
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error("scores.json non disponibile")))
+      .then((remote) => {
+        if (!active || !remote?.teams) return;
+        const nextScores = Object.fromEntries(Object.entries(remote.teams).map(([id, team]) => [Number(id), Number((team as { score?: number }).score ?? 0)]));
+        setScores(nextScores);
+        setLastUpdated(remote.updatedAt ? new Intl.DateTimeFormat("it-IT", { hour: "2-digit", minute: "2-digit" }).format(new Date(remote.updatedAt)) : "Archivio GitHub");
+      })
+      .catch(() => undefined);
+    return () => { active = false; };
+  }, []);
 
   const rankedTeams = useMemo(
     () => [...teams].sort((a, b) => (scores[b.id] ?? 0) - (scores[a.id] ?? 0) || a.id - b.id),
@@ -123,7 +138,7 @@ export default function Home() {
           <div className="flex items-center justify-between border-t border-[#101924]/15 px-5 py-4 text-xs text-[#65707b] sm:px-8"><span>Più e meno, si aggiungono +1 ogni volta.</span><ChevronDown size={17} /></div>
         </section>
 
-        <footer className="flex flex-col gap-3 py-8 text-xs text-[#75808a] sm:flex-row sm:items-center sm:justify-between"><span>© BBoz · Comitato scientifico del pianto</span><span className="font-bold uppercase tracking-[0.12em]">Dati salvati su questo dispositivo</span></footer>
+        <footer className="flex flex-col gap-3 py-8 text-xs text-[#75808a] sm:flex-row sm:items-center sm:justify-between"><span>© BBoz · Comitato scientifico del pianto</span><span className="font-bold uppercase tracking-[0.12em]">Classifica condivisa · GitHub</span></footer>
       </div>
 
       {showShare && <div className="fixed inset-0 z-20 grid place-items-center bg-[#071019]/70 p-5 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="share-title"><div className="w-full max-w-md rounded-[20px] bg-[#f4efe5] p-7 text-[#101924] shadow-[10px_10px_0_#e65c3a]"><p className="eyebrow text-[#e65c3a]">Diffondi il tabellone</p><h2 id="share-title" className="mt-3 font-display text-3xl font-black tracking-[-0.06em]">Condividi la classifica</h2><pre className="mt-5 max-h-44 overflow-auto whitespace-pre-wrap rounded-xl bg-[#e6e0d5] p-4 font-sans text-xs leading-5 text-[#65707b]">{shareText}</pre><div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4"><a className="share-option" href={`https://wa.me/?text=${shareEncoded}`} target="_blank" rel="noreferrer">WhatsApp</a><a className="share-option" href={`https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`} target="_blank" rel="noreferrer">Telegram</a><button className="share-option" onClick={async () => { if (navigator.share) await navigator.share({ title: "Classifica BBoz", text: shareText, url: shareUrl }); else await copyRanking(); }}><Share2 size={14} /> Altro</button><button className="share-option" onClick={copyRanking}><Copy size={14} /> Copia</button></div><button className="cancel-button mt-5 w-full" onClick={() => setShowShare(false)}>Chiudi</button></div></div>}
