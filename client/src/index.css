@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Design: Albo d’Oro del Dramma — fondo blu notte, avorio editoriale, Ruggine del Dramma #E65C3A. */
+
+:root { --background: #101924; --foreground: #f4efe5; --radius: 1rem; }
+* { box-sizing: border-box; }
+html { background: #101924; }
+body { margin: 0; min-width: 320px; background: #101924; font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+button { font: inherit; }
+.font-display { font-family: 'Space Grotesk', sans-serif; }
+.eyebrow { font-size: 10px; line-height: 1.2; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.utility-button { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(244,239,229,.22); border-radius: 999px; padding: 9px 13px; color: #d7d9d6; font-size: 11px; font-weight: 700; letter-spacing: .05em; transition: transform 160ms cubic-bezier(.23,1,.32,1), background 160ms ease, color 160ms ease; }
+.utility-button:hover { background: #f4efe5; color: #101924; transform: translateY(-2px); }
+.utility-share { border-color: rgba(230,92,58,.65); color: #f0a18f; }
+.share-option { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 38px; border: 1px solid rgba(16,25,36,.18); border-radius: 9px; background: #fffaf2; color: #101924; padding: 8px 7px; font-size: 11px; font-weight: 700; text-decoration: none; transition: transform 160ms ease, background 160ms ease, color 160ms ease; }
+.share-option:hover { background: #101924; color: #f4efe5; transform: translateY(-1px); }
+.utility-button:active, .minus-button:active:not(:disabled), .plus-button:active, .confirm-button:active, .cancel-button:active { transform: scale(.96); }
+.team-row { min-height: 84px; border-bottom: 1px solid rgba(16,25,36,.12); transition: background 180ms ease, transform 180ms cubic-bezier(.23,1,.32,1); }
+.team-row:hover { background: #fffaf2; }
+.team-initial { display: inline-grid; height: 25px; min-width: 25px; place-items: center; border: 1px solid rgba(16,25,36,.22); border-radius: 6px; color: #65707b; font-size: 9px; font-weight: 700; letter-spacing: .05em; }
+.score-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+.minus-button, .plus-button { min-height: 44px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; transition: transform 160ms cubic-bezier(.23,1,.32,1), box-shadow 160ms ease, background 160ms ease, color 160ms ease, border-color 160ms ease; }
+.minus-button { display: inline-flex; align-items: center; justify-content: center; min-width: 46px; border: 1px solid rgba(16,25,36,.28); background: transparent; padding: 9px 8px; color: #65707b; }
+.minus-button:hover:not(:disabled) { border-color: #101924; background: #101924; color: #f4efe5; transform: translateY(-1px); }
+.minus-button:disabled { cursor: not-allowed; opacity: .38; }
+.plus-button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-width: 62px; border: 1px solid #e65c3a; background: #e65c3a; padding: 10px 10px; color: #fff8ee; box-shadow: 3px 3px 0 #a83525; }
+.plus-button:hover { filter: saturate(1.15); transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #a83525; }
+.minus-button:focus-visible, .plus-button:focus-visible, .utility-button:focus-visible, .share-option:focus-visible { outline: 3px solid #f2b24b; outline-offset: 3px; }
+.plus-button-pulse { animation: button-pulse 180ms cubic-bezier(.23,1,.32,1); }
+.cancel-button, .confirm-button { border-radius: 9px; padding: 11px 15px; font-size: 12px; font-weight: 700; transition: transform 160ms ease; }
+.cancel-button { color: #65707b; }
+.confirm-button { background: #e65c3a; color: white; box-shadow: 3px 3px 0 #a83525; }
+@keyframes button-pulse { 0% { transform: scale(1); } 45% { transform: scale(.93) rotate(-2deg); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: no-preference) { .team-row { animation: row-in 480ms both cubic-bezier(.23,1,.32,1); } .team-row:nth-child(2) { animation-delay: 25ms; } .team-row:nth-child(3) { animation-delay: 50ms; } .team-row:nth-child(4) { animation-delay: 75ms; } .team-row:nth-child(5) { animation-delay: 100ms; } .team-row:nth-child(6) { animation-delay: 125ms; } .team-row:nth-child(7) { animation-delay: 150ms; } .team-row:nth-child(8) { animation-delay: 175ms; } }
+@keyframes row-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 420px) { .team-row { grid-template-columns: 32px minmax(0,1fr) 52px 112px; gap: 7px; padding-left: 14px; padding-right: 14px; } .team-row .font-display.text-\[15px\] { font-size: 13px; } .score-actions { gap: 6px; } .minus-button, .plus-button { min-height: 44px; font-size: 12px; } .minus-button { min-width: 46px; padding: 8px 5px; } .plus-button { min-width: 60px; padding: 9px 6px; } }
