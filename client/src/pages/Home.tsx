@@ -132,7 +132,7 @@ export default function Home() {
                     <Bot size={20} />
                   </div>
                   <div>
-                    <h2 className="font-display text-lg font-black tracking-[-0.03em]">BBoz Local AI Analyst</h2>
+                    <h2 className="font-display text-lg font-black tracking-[-0.03em]">PapaBOT</h2>
                     <p className="text-xs text-[#b1bac2]">Analisi algoritmica istantanea in tempo reale</p>
                   </div>
                 </div>
@@ -158,6 +158,12 @@ export default function Home() {
                     </p>
                   )}
                 </div>
+              </div>
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4 text-xs">
+                <span className="text-[#b1bac2]">🤖 Bot ufficiale Hugging Face Space collegato: <strong className="text-[#f4efe5]">ianseberg/papaflocina-bot</strong></span>
+                <a href="https://huggingface.co/spaces/ianseberg/papaflocina-bot" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-lg bg-[#e65c3a] px-3 py-1.5 font-bold text-white shadow hover:bg-[#d54d2c] transition-colors">
+                  <ArrowUpRight size={14} /> Apri Papaflocina Bot (HF Space)
+                </a>
               </div>
             </section>
           );

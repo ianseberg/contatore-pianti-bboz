@@ -43,3 +43,13 @@
 - [x] Aggiornare le etichette della pagina da Stagione 01 a League Two.
 - [x] Verificare TypeScript e build di produzione.
 - [ ] Salvare il checkpoint della revisione.
+
+# Revisione nome assistente locale
+
+- [x] Rinominare l'analista AI locale in PapaBOT nell'interfaccia e nei riferimenti del codice.
+
+# Integrazione Hugging Face Space (ianseberg/papaflocina-bot)
+
+- [x] Aggiornare todo.md per l'integrazione di papaflocina-bot da Hugging Face.
+- [x] Aggiungere il link e il widget incorporato di ianseberg/papaflocina-bot nella sezione PapaBOT.
+- [x] Verificare build e pubblicare su GitHub.
