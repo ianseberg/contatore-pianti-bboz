@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowUpRight, ChevronDown, Copy, RotateCcw, Share2, Trophy, Waves } from "lucide-react";
+import { ArrowUpRight, Bot, ChevronDown, Copy, RotateCcw, Share2, Sparkles, Trophy, Waves, AlertCircle } from "lucide-react";
+import { analyzeLocalAI } from "@/lib/localAI";
 
 /**
  * Design: Albo d’Oro del Dramma — sporting editorial / neo-brutalismo raffinato.
@@ -118,6 +119,49 @@ export default function Home() {
             <div className="mt-7 flex items-center gap-2 text-xs text-[#b1bac2]"><Waves size={15} className="text-[#e65c3a]" /> Ultimo aggiornamento: {lastUpdated}</div>
           </aside>
         </section>
+
+        {/* AI Locale Insights Panel */}
+        {(() => {
+          const teamsForAI = teams.map(t => ({ ...t, score: scores[t.id] ?? 0 }));
+          const ai = analyzeLocalAI(teamsForAI, totalCrying);
+          return (
+            <section className="mb-12 rounded-[20px] border border-white/15 bg-[#172230] p-6 text-[#f4efe5] shadow-[8px_8px_0_rgba(230,92,58,0.25)]">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#e65c3a] text-white shadow">
+                    <Bot size={20} />
+                  </div>
+                  <div>
+                    <h2 className="font-display text-lg font-black tracking-[-0.03em]">BBoz Local AI Analyst</h2>
+                    <p className="text-xs text-[#b1bac2]">Analisi algoritmica istantanea in tempo reale</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 rounded-lg bg-white/5 px-3 py-1.5 text-xs font-semibold text-[#e65c3a]">
+                  <Sparkles size={14} /> Stato: {ai.mood}
+                </div>
+              </div>
+              <div className="mt-5 grid gap-4 md:grid-cols-3">
+                <div className="rounded-xl bg-white/5 p-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.1em] text-[#b1bac2]">Lettura Tattica</p>
+                  <p className="mt-2 text-sm leading-6 text-[#f4efe5]">{ai.summary}</p>
+                </div>
+                <div className="rounded-xl bg-white/5 p-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.1em] text-[#b1bac2]">Consiglio Tecnico</p>
+                  <p className="mt-2 text-sm leading-6 text-[#f4efe5]">{ai.recommendation}</p>
+                </div>
+                <div className="rounded-xl bg-white/5 p-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.1em] text-[#b1bac2]">Leader in Fuga</p>
+                  <p className="mt-2 font-display text-xl font-black text-[#e65c3a]">{ai.favorite}</p>
+                  {ai.warning && (
+                    <p className="mt-2 flex items-center gap-1.5 text-xs text-[#f6ad55]">
+                      <AlertCircle size={13} /> {ai.warning}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </section>
+          );
+        })()}
 
         <section className="relative overflow-hidden rounded-[24px] bg-[#f4efe5] text-[#101924] shadow-[10px_10px_0_#071019]">
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[#101924]/15 px-5 pb-5 pt-6 sm:px-8">
