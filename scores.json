@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "updatedAt": null,
+  "updatedAt": "2026-08-19T12:12:35Z",
   "teams": {
-    "1": {"name": "AC BILAN", "short": "AB", "score": 0},
+    "1": {"name": "AC BILAN", "short": "AB", "score": 1},
     "2": {"name": "Livercul", "short": "LI", "score": 0},
     "3": {"name": "PIERO GORNA FC", "short": "PG", "score": 0},
     "4": {"name": "DivinCodindio United", "short": "DU", "score": 0},
